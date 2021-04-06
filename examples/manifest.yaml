@@ -1,0 +1,98 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: credit-card
+stringData:
+  number: "1111111111111111"
+  expiration: "01/99"
+  securityCode: "111"
+  cardType: "visa"
+  zip: "M9L14J"
+#---
+#kind: Secret
+#apiVersion: v1
+#metadata:
+#  name: credit-card
+#stringData:
+#  number: "123343132314232"
+#  expiration: "12/02"
+#  securityCode: "123"
+#  zip: "m5d0l2"
+#---
+#
+#kind: PizzaCustomer
+#apiVersion: ops.tips/v1alpha1
+#metadata:
+#  name: customer
+#spec:
+#  firstName: Bob
+#  lastName: Obama
+#  email: bob@obama.gov
+#  phone: "+14168229881"
+#  streetNumber: "66"
+#  streetName: Fort York Blvd
+#  city: Toronto
+#  state: "ON"
+#  zip: M5S4A6
+#  creditCardSecretRef: {name: credit-card}
+---
+kind: PizzaCustomer
+apiVersion: ops.tips/v1alpha1
+metadata:
+  name: you
+spec:
+  firstName: barack
+  lastName: obama
+  email: obama@gov.gov
+  phone: "31241323"
+  streetNumber: "20"
+  streetName: King St
+  city: Toronto
+  state: "ON"
+  zip: m5lz8j
+  creditCardSecretRef:
+    name: credit-card
+---
+
+kind: PizzaStore
+apiVersion: ops.tips/v1alpha1
+metadata:
+  name: store-123
+spec:
+  address: |
+    51 Niagara St
+    Toronto, ON M5V1C3
+  id: "10391"
+  phone: 416-364-3939
+  products:
+    - description: Unique Lymon (lemon-lime) flavor, clear, clean and crisp with no caffeine.
+      id: 2LSPRITEkyikyi
+      name: Sprite
+      size: 2 Litre
+---
+
+kind: PizzaOrder
+apiVersion: ops.tips/v1alpha1
+metadata:
+  name: ma-pizza
+spec:
+  yeahSurePlaceTheOrder: true  # otherwise, it'll just calculate the price
+  storeRef: {name: store-123}
+  customerRef: {name: you}
+  paymentType: "credit-card"
+  products:
+    - id: 10SCREEN
+      quantity: 1
+---
+
+#kind: PizzaOrder
+#apiVersion: ops.tips/v1alpha1
+#metadata:
+#  name: order
+#spec:
+#  yeahSurePlaceTheOrder: true
+#  storeRef: {name: "store-10391"}
+#  customerRef: {name: "customer"}
+#  products:
+#    - id: "10SCREEN"
+#      quantity: 1
